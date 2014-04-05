@@ -228,16 +228,6 @@ def createFaceRig():
     faceRig.data.edit_bones["IK-eye.R"].use_deform = False
     faceRig.data.edit_bones["IK-eyes_lookat"].use_deform = False
     
-    #transform controls for jaw
-    faceRig.data.edit_bones["DEF-lowerJaw"].rotationMode = "YXZ Euler"
-    bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
-    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_x = True
-    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].min_x = -0.523599
-    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].max_x = 0.0
-    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_y = True
-    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_z = True
-    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].owner_space = "LOCAL"
-
     #constraints
     bpy.ops.object.mode_set(mode='POSE')
     
@@ -252,6 +242,15 @@ def createFaceRig():
     faceRig.pose.bones["DEF-eye.R"].constraints[-1].target = faceRig
     faceRig.pose.bones["DEF-eye.R"].constraints[-1].subtarget = "IK-eye.R"
     faceRig.pose.bones["DEF-eye.R"].constraints[-1].chain_count = 1
+
+    faceRig.data.bones.active = faceRig.data.bones["DEF-lowerJaw"]
+    bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
+    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_x = True
+    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].min_x = -0.523599
+    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].max_x = 0.0
+    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_y = True
+    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_z = True
+    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].owner_space = "LOCAL"
 
     bpy.ops.object.mode_set(mode='OBJECT')
 
