@@ -246,7 +246,7 @@ def createFaceRig():
     faceRig.data.bones.active = faceRig.data.bones["DEF-lowerJaw"]
     bpy.ops.pose.constraint_add(type='LIMIT_ROTATION')
     faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_x = True
-    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].min_x = -0.523599
+    faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].min_x = 0.523599
     faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].max_x = 0.0
     faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_y = True
     faceRig.pose.bones["DEF-lowerJaw"].constraints[-1].use_limit_z = True
@@ -2857,14 +2857,14 @@ class KhaliblooPanel(bpy.types.Panel):
                 
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_setup")
                 #layout.operator("object.khalibloo_genesis_rigify_setup")
                 layout.operator("object.khalibloo_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2875,7 +2875,7 @@ class KhaliblooPanel(bpy.types.Panel):
                 layout.prop(scene, "khalibloo_genesis_morph_dir")
                 
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_import_genesis_morphs")
                 
 
@@ -2894,7 +2894,7 @@ class KhaliblooPanel(bpy.types.Panel):
             elif (genesis_type == '1'):
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2911,14 +2911,14 @@ class KhaliblooPanel(bpy.types.Panel):
                 
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis2male_rigify_setup")
 
                 layout.operator("object.khalibloo_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2929,7 +2929,7 @@ class KhaliblooPanel(bpy.types.Panel):
                 layout.prop(scene, "khalibloo_genesis_morph_dir")
                 
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_import_genesis_morphs")
                 
 
@@ -2949,14 +2949,14 @@ class KhaliblooPanel(bpy.types.Panel):
                 
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis2female_rigify_setup")
 
                 layout.operator("object.khalibloo_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2967,7 +2967,7 @@ class KhaliblooPanel(bpy.types.Panel):
                 layout.prop(scene, "khalibloo_genesis_morph_dir")
                 
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_import_genesis_morphs")
                 
 
@@ -2985,7 +2985,7 @@ class KhaliblooPanel(bpy.types.Panel):
             elif (genesis2_type == '2'):
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -3055,7 +3055,7 @@ def initialize():
     name="",
     description="Folder where your Genesis morphs of choice are located",
     subtype="DIR_PATH",
-    default="/home/jspade/Dropbox/Modeling/Morphs")
+    default="/Users/jspade/Dropbox/Modeling/Morphs")
 
 
 
