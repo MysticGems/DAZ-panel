@@ -7,3 +7,4 @@ Noteworthy features so far:
 
 * Added lower jaw bone so the mouth can open
 * Fixed roll angles in Genesis 2 females
+* Fixed roll angles for Genesis
