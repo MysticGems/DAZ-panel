@@ -17,22 +17,22 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 bl_info = {
-    "name": "Khalibloo Panel",
+    "name": "DAZ Panel",
     "version": (1, 1),
     "author": "Khalifa Lame",
     "blender": (2, 69, 0),
     "description": "Broad collection of tools to simplify common repetitive tasks. Includes tools for prepping DAZ Genesis characters and items.",
-    "location": "View3D > Properties > Khalibloo panel",
-    "category": "Khalibloo"}
+    "location": "View3D > Properties > Rigging",
+    "category": "DAZ3D"}
 
 
 
 if "bpy" in locals():
-    #print("Reloading Khalibloo Panel")
+    #print("Reloading DAZ Panel")
     import bmesh
     
 else:
-    #print("Loading Khalibloo Panel")
+    #print("Loading DAZ Panel")
     import bpy
     import bmesh
 
@@ -798,7 +798,7 @@ def removeConstraints(obj):
 
 class CopyAllShapeKeys(bpy.types.Operator):
     """Copies all shape keys of selected object(s) to active object"""
-    bl_idname = "object.khalibloo_copy_all_shape_keys"
+    bl_idname = "object.dazstudio_copy_all_shape_keys"
     bl_label = "Copy All Shape Keys"
     
     @classmethod
@@ -835,7 +835,7 @@ class CopyAllShapeKeys(bpy.types.Operator):
 
 class GenesisRigifySetup(bpy.types.Operator):
     """Generate and setup a rigify rig for the active Genesis figure"""
-    bl_idname = "object.khalibloo_genesis_rigify_setup"
+    bl_idname = "object.dazstudio_genesis_rigify_setup"
     bl_label = "Rigify"
 
     @classmethod
@@ -1021,7 +1021,7 @@ class GenesisRigifySetup(bpy.types.Operator):
                 rigifyRig = bpy.context.active_object
                 rigifyRig.name = genesis.name + "-rig"
                 #fix neck issue
-                bpy.ops.object.khalibloo_rigify_neck_fix()
+                bpy.ops.object.dazstudio_rigify_neck_fix()
                 parentWGTs()
                 
                 joinFaceRig(faceRig, rigifyRig)
@@ -1032,7 +1032,7 @@ class GenesisRigifySetup(bpy.types.Operator):
 
 class Genesis2FemaleRigifySetup(bpy.types.Operator):
     """Generate and setup a rigify rig for the active Genesis 2 Female figure"""
-    bl_idname = "object.khalibloo_genesis2female_rigify_setup"
+    bl_idname = "object.dazstudio_genesis2female_rigify_setup"
     bl_label = "Rigify"
 
     @classmethod
@@ -1217,7 +1217,7 @@ class Genesis2FemaleRigifySetup(bpy.types.Operator):
                 rigifyRig = bpy.context.active_object
                 rigifyRig.name = genesis.name + "-rig"
                 #fix neck issue
-                bpy.ops.object.khalibloo_rigify_neck_fix()
+                bpy.ops.object.dazstudio_rigify_neck_fix()
                 parentWGTs()
         
                 joinFaceRig(faceRig, rigifyRig)
@@ -1228,7 +1228,7 @@ class Genesis2FemaleRigifySetup(bpy.types.Operator):
 
 class Genesis2MaleRigifySetup(bpy.types.Operator):
     """Generate and setup a rigify rig for the active Genesis 2 Male figure"""
-    bl_idname = "object.khalibloo_genesis2male_rigify_setup"
+    bl_idname = "object.dazstudio_genesis2male_rigify_setup"
     bl_label = "Rigify"
 
     @classmethod
@@ -1415,7 +1415,7 @@ class Genesis2MaleRigifySetup(bpy.types.Operator):
                 rigifyRig = bpy.context.active_object
                 rigifyRig.name = genesis.name + "-rig"
                 #fix neck issue
-                bpy.ops.object.khalibloo_rigify_neck_fix()
+                bpy.ops.object.dazstudio_rigify_neck_fix()
                 parentWGTs()
                 
                 joinFaceRig(faceRig, rigifyRig)
@@ -1427,7 +1427,7 @@ class Genesis2MaleRigifySetup(bpy.types.Operator):
 
 class GenesisRigifyVgroups(bpy.types.Operator):
     """Mixes and renames the deformation vertex groups of a Genesis figure and/or selected Genesis item(s) to conform with Rigify. Backups are made before mixing, so no vertex groups are lost."""
-    bl_idname = "object.khalibloo_genesis_rigify_vgroups"
+    bl_idname = "object.dazstudio_genesis_rigify_vgroups"
     bl_label = "Rigify Vertex Groups"
 
     @classmethod
@@ -1555,7 +1555,7 @@ class GenesisRigifyVgroups(bpy.types.Operator):
 
 class GenesisUnrigifyVgroups(bpy.types.Operator):
     """Renames the vertex groups of a rigified Genesis figure and/or selected Genesis item(s) to their original names"""
-    bl_idname = "object.khalibloo_genesis_unrigify_vgroups"
+    bl_idname = "object.dazstudio_genesis_unrigify_vgroups"
     bl_label = "Unrigify Vertex Groups"
 
     @classmethod
@@ -1657,7 +1657,7 @@ class GenesisUnrigifyVgroups(bpy.types.Operator):
 
 class ReceiveTransparentShadows(bpy.types.Operator):
     """Sets all materials of the selected object(s) to receive transparent shadows"""
-    bl_idname = "object.khalibloo_receive_transparent_shadows"
+    bl_idname = "object.dazstudio_receive_transparent_shadows"
     bl_label = "Receive Transparent"
 
     @classmethod
@@ -1675,7 +1675,7 @@ class GenesisMaterialSetup(bpy.types.Operator):
     """Fixes the necessary settings on each of the materials and textures of the active Genesis figure.
     Note:for this to work, the materials must be using their default names.
     For example, "daz_1_SkinFace" not 'daz_1_SkinFace.001'"""
-    bl_idname = "object.khalibloo_genesis_material_setup"
+    bl_idname = "object.dazstudio_genesis_material_setup"
     bl_label = "Setup Materials"
 
 
@@ -1686,8 +1686,8 @@ class GenesisMaterialSetup(bpy.types.Operator):
     def execute(self, context):
         obj = bpy.context.active_object
         originalMatList = obj.material_slots.keys()
-        affect_textures = bpy.context.scene.khalibloo_affect_textures
-        merge_mats = bpy.context.scene.khalibloo_merge_mats
+        affect_textures = bpy.context.scene.dazstudio_affect_textures
+        merge_mats = bpy.context.scene.dazstudio_merge_mats
 
 
 
@@ -2220,7 +2220,7 @@ class GenesisMaterialSetup(bpy.types.Operator):
 
 class RigifyNeckFix(bpy.types.Operator):
     """Fixes a rare condition where the rigify rig's neck bone is a lot larger than it should be"""
-    bl_idname = "object.khalibloo_rigify_neck_fix"
+    bl_idname = "object.dazstudio_rigify_neck_fix"
     bl_label = "Rigify Neck Fix"
 
     @classmethod
@@ -2254,7 +2254,7 @@ class RigifyNeckFix(bpy.types.Operator):
 
 class ModifiersRealTimeOn(bpy.types.Operator):
     """Turn on real time display of modifiers of the selected objects"""
-    bl_idname = "object.khalibloo_modifiers_realtime_on"
+    bl_idname = "object.dazstudio_modifiers_realtime_on"
     bl_label = "Real Time Display On"
 
     @classmethod
@@ -2264,7 +2264,7 @@ class ModifiersRealTimeOn(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2277,7 +2277,7 @@ class ModifiersRealTimeOn(bpy.types.Operator):
 
 class ModifiersRealTimeOff(bpy.types.Operator):
     """Turn off real time display of modifiers of the selected objects"""
-    bl_idname = "object.khalibloo_modifiers_realtime_off"
+    bl_idname = "object.dazstudio_modifiers_realtime_off"
     bl_label = "Real Time Display Off"
 
     @classmethod
@@ -2287,7 +2287,7 @@ class ModifiersRealTimeOff(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2300,7 +2300,7 @@ class ModifiersRealTimeOff(bpy.types.Operator):
 
 class ModifiersRenderOn(bpy.types.Operator):
     """Turn on modifiers of the selected objects during rendering"""
-    bl_idname = "object.khalibloo_modifiers_render_on"
+    bl_idname = "object.dazstudio_modifiers_render_on"
     bl_label = "Render Display On"
 
     @classmethod
@@ -2310,7 +2310,7 @@ class ModifiersRenderOn(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2323,7 +2323,7 @@ class ModifiersRenderOn(bpy.types.Operator):
 
 class ModifiersRenderOff(bpy.types.Operator):
     """Turn off modifiers of the selected objects during rendering"""
-    bl_idname = "object.khalibloo_modifiers_render_off"
+    bl_idname = "object.dazstudio_modifiers_render_off"
     bl_label = "Render Display Off"
 
     @classmethod
@@ -2333,7 +2333,7 @@ class ModifiersRenderOff(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2346,7 +2346,7 @@ class ModifiersRenderOff(bpy.types.Operator):
 
 class ModifiersEditModeOn(bpy.types.Operator):
     """Turn on edit mode display of modifiers of the selected objects"""
-    bl_idname = "object.khalibloo_modifiers_editmode_on"
+    bl_idname = "object.dazstudio_modifiers_editmode_on"
     bl_label = "Edit Mode Display On"
 
     @classmethod
@@ -2356,7 +2356,7 @@ class ModifiersEditModeOn(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2369,7 +2369,7 @@ class ModifiersEditModeOn(bpy.types.Operator):
 
 class ModifiersEditModeOff(bpy.types.Operator):
     """Turn off edit mode display of modifiers of the selected objects"""
-    bl_idname = "object.khalibloo_modifiers_editmode_off"
+    bl_idname = "object.dazstudio_modifiers_editmode_off"
     bl_label = "Edit Mode Display Off"
 
     @classmethod
@@ -2379,7 +2379,7 @@ class ModifiersEditModeOff(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2392,7 +2392,7 @@ class ModifiersEditModeOff(bpy.types.Operator):
 
 class ModifiersApply(bpy.types.Operator):
     """Apply all modifiers of the selected objects in order"""
-    bl_idname = "object.khalibloo_modifiers_apply"
+    bl_idname = "object.dazstudio_modifiers_apply"
     bl_label = "Apply"
 
     @classmethod
@@ -2402,7 +2402,7 @@ class ModifiersApply(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2415,7 +2415,7 @@ class ModifiersApply(bpy.types.Operator):
 
 class ModifiersRemove(bpy.types.Operator):
     """Delete all modifiers of the selected objects"""
-    bl_idname = "object.khalibloo_modifiers_remove"
+    bl_idname = "object.dazstudio_modifiers_remove"
     bl_label = "Delete"
 
     @classmethod
@@ -2425,7 +2425,7 @@ class ModifiersRemove(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        subsurf_only = bpy.context.scene.khalibloo_subsurf_only
+        subsurf_only = bpy.context.scene.dazstudio_subsurf_only
 
         for obj in bpy.context.selected_objects:
             if subsurf_only:
@@ -2438,7 +2438,7 @@ class ModifiersRemove(bpy.types.Operator):
 
 class ConstraintsMute(bpy.types.Operator):
     """Mute all constraints of the selected objects"""
-    bl_idname = "object.khalibloo_constraints_mute"
+    bl_idname = "object.dazstudio_constraints_mute"
     bl_label = "Mute Constraints"
 
     @classmethod
@@ -2457,7 +2457,7 @@ class ConstraintsMute(bpy.types.Operator):
 
 class ConstraintsUnmute(bpy.types.Operator):
     """Unmute all constraints of the selected objects"""
-    bl_idname = "object.khalibloo_constraints_unmute"
+    bl_idname = "object.dazstudio_constraints_unmute"
     bl_label = "Unmute Constraints"
 
     @classmethod
@@ -2476,7 +2476,7 @@ class ConstraintsUnmute(bpy.types.Operator):
 
 class ConstraintsRemove(bpy.types.Operator):
     """Delete all constraints of the selected objects"""
-    bl_idname = "object.khalibloo_constraints_remove"
+    bl_idname = "object.dazstudio_constraints_remove"
     bl_label = "Delete Constraints"
 
     @classmethod
@@ -2495,7 +2495,7 @@ class ConstraintsRemove(bpy.types.Operator):
 
 class TexturesOff(bpy.types.Operator):
     """Disable all textures of all materials of the selected objects"""
-    bl_idname = "object.khalibloo_textures_off"
+    bl_idname = "object.dazstudio_textures_off"
     bl_label = "Disable Textures"
 
     @classmethod
@@ -2514,7 +2514,7 @@ class TexturesOff(bpy.types.Operator):
 
 class TexturesOn(bpy.types.Operator):
     """Enable all textures of all materials of the selected objects"""
-    bl_idname = "object.khalibloo_textures_on"
+    bl_idname = "object.dazstudio_textures_on"
     bl_label = "Disable Textures"
 
     @classmethod
@@ -2533,7 +2533,7 @@ class TexturesOn(bpy.types.Operator):
 
 class MaterialsRemove(bpy.types.Operator):
     """Remove all materials from the selected objects"""
-    bl_idname = "object.khalibloo_materials_remove"
+    bl_idname = "object.dazstudio_materials_remove"
     bl_label = "Remove Materials"
 
     @classmethod
@@ -2552,7 +2552,7 @@ class MaterialsRemove(bpy.types.Operator):
 
 class TransformsApply(bpy.types.Operator):
     """Apply transforms of the selected objects"""
-    bl_idname = "object.khalibloo_apply_transforms"
+    bl_idname = "object.dazstudio_apply_transforms"
     bl_label = "Apply Transforms"
 
     @classmethod
@@ -2562,9 +2562,9 @@ class TransformsApply(bpy.types.Operator):
 
     def execute(self, context):
         objBackup = bpy.context.active_object
-        apply_location = bpy.context.scene.khalibloo_apply_location
-        apply_rotation = bpy.context.scene.khalibloo_apply_rotation
-        apply_scale = bpy.context.scene.khalibloo_apply_scale
+        apply_location = bpy.context.scene.dazstudio_apply_location
+        apply_rotation = bpy.context.scene.dazstudio_apply_rotation
+        apply_scale = bpy.context.scene.dazstudio_apply_scale
 
         bpy.ops.object.mode_set(mode='OBJECT')
         for obj in bpy.context.selected_objects:
@@ -2576,7 +2576,7 @@ class TransformsApply(bpy.types.Operator):
 
 class LocationApply(bpy.types.Operator):
     """Apply location transforms of the selected objects"""
-    bl_idname = "object.khalibloo_apply_location"
+    bl_idname = "object.dazstudio_apply_location"
     bl_label = "Apply Location"
 
     @classmethod
@@ -2597,7 +2597,7 @@ class LocationApply(bpy.types.Operator):
 
 class RotationApply(bpy.types.Operator):
     """Apply rotation transforms of the selected objects"""
-    bl_idname = "object.khalibloo_apply_rotation"
+    bl_idname = "object.dazstudio_apply_rotation"
     bl_label = "Apply Rotation"
 
     @classmethod
@@ -2618,7 +2618,7 @@ class RotationApply(bpy.types.Operator):
 
 class ScaleApply(bpy.types.Operator):
     """Apply scale transforms of the selected objects"""
-    bl_idname = "object.khalibloo_apply_scale"
+    bl_idname = "object.dazstudio_apply_scale"
     bl_label = "Apply Scale"
 
     @classmethod
@@ -2639,7 +2639,7 @@ class ScaleApply(bpy.types.Operator):
 
 class HideSelect(bpy.types.Operator):
     """Make selected objects unselectable"""
-    bl_idname = "object.khalibloo_hide_select"
+    bl_idname = "object.dazstudio_hide_select"
     bl_label = "Hide Select"
 
     @classmethod
@@ -2653,7 +2653,7 @@ class HideSelect(bpy.types.Operator):
 
 class UnhideSelect(bpy.types.Operator):
     """Make all objects selectable"""
-    bl_idname = "object.khalibloo_unhide_select"
+    bl_idname = "object.dazstudio_unhide_select"
     bl_label = "Unhide Select"
 
     @classmethod
@@ -2667,7 +2667,7 @@ class UnhideSelect(bpy.types.Operator):
 
 class HideRender(bpy.types.Operator):
     """Make selected objects invisible in renders"""
-    bl_idname = "object.khalibloo_hide_render"
+    bl_idname = "object.dazstudio_hide_render"
     bl_label = "Hide Render"
 
     @classmethod
@@ -2681,7 +2681,7 @@ class HideRender(bpy.types.Operator):
 
 class UnhideRender(bpy.types.Operator):
     """Make selected objects visible in renders"""
-    bl_idname = "object.khalibloo_unhide_render"
+    bl_idname = "object.dazstudio_unhide_render"
     bl_label = "Unhide Render"
 
     @classmethod
@@ -2695,7 +2695,7 @@ class UnhideRender(bpy.types.Operator):
 
 class SubsurfAdd(bpy.types.Operator):
     """Add a subsurface division modifier to the selected objects"""
-    bl_idname = "object.khalibloo_add_subsurf"
+    bl_idname = "object.dazstudio_add_subsurf"
     bl_label = "Add Subsurf Modifier"
 
     @classmethod
@@ -2717,7 +2717,7 @@ class SubsurfAdd(bpy.types.Operator):
 
 class GenesisImportMorphs(bpy.types.Operator):
     """Imports all Genesis morphs(.dsf) in the path specified as shape keys of the active Genesis figure"""
-    bl_idname = "object.khalibloo_import_genesis_morphs"
+    bl_idname = "object.dazstudio_import_genesis_morphs"
     bl_label = "Import Morphs"
 
     @classmethod
@@ -2728,7 +2728,7 @@ class GenesisImportMorphs(bpy.types.Operator):
     def execute(self, context):
         import os
         obj = bpy.context.active_object
-        morph_dir = bpy.context.scene.khalibloo_genesis_morph_dir 
+        morph_dir = bpy.context.scene.dazstudio_genesis_morph_dir 
 
         for filename in os.listdir(morph_dir):
             filepath = morph_dir + filename
@@ -2747,7 +2747,7 @@ class GenesisImportMorphs(bpy.types.Operator):
 # DRAW PANEL
 #============================================================================
 
-class KhaliblooPanel(bpy.types.Panel):
+class DAZPanel(bpy.types.Panel):
     """Creates a Panel in the properties context of the 3D viewport"""
     bl_label = "DAZ Studio"
     bl_idname = "SCENE_PT_layout"
@@ -2760,90 +2760,90 @@ class KhaliblooPanel(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         scene = context.scene
-        platform_type = bpy.context.scene.khalibloo_enumPlatformTypes
-        genesis_type = bpy.context.scene.khalibloo_enumGenesisTypes
-        genesis2_type = bpy.context.scene.khalibloo_enumGenesis2Types
-        category_type = bpy.context.scene.khalibloo_enumCategoryTypes
+        platform_type = bpy.context.scene.dazstudio_enumPlatformTypes
+        genesis_type = bpy.context.scene.dazstudio_enumGenesisTypes
+        genesis2_type = bpy.context.scene.dazstudio_enumGenesis2Types
+        category_type = bpy.context.scene.dazstudio_enumCategoryTypes
 
 
         #Platforn type
         #layout.label(text="Choose Platform:")
         #row = layout.row()
-        layout.prop(scene, "khalibloo_enumPlatformTypes", expand=False)
+        layout.prop(scene, "dazstudio_enumPlatformTypes", expand=False)
         
 #---------------------------------------------------------------------------------
         #GENERAL TOOLS
         if (platform_type == '0'):
             #Platforn type
             #layout.label(text="Choose Tools Type:")
-            layout.prop(scene, "khalibloo_enumCategoryTypes", expand=True)
+            layout.prop(scene, "dazstudio_enumCategoryTypes", expand=True)
 
 
             #OBJECT DATA TAB
             if (category_type == '0'):
                 #row = layout.row()
-                #row.prop(scene, "khalibloo_apply_location")
-                #row.prop(scene, "khalibloo_apply_rotation")
-                #layout.prop(scene, "khalibloo_apply_scale")
-                #layout.operator("object.khalibloo_apply_transforms")
+                #row.prop(scene, "dazstudio_apply_location")
+                #row.prop(scene, "dazstudio_apply_rotation")
+                #layout.prop(scene, "dazstudio_apply_scale")
+                #layout.operator("object.dazstudio_apply_transforms")
 
                 layout.label(text="Apply: ")
                 row = layout.row(align=True)
-                row.operator("object.khalibloo_apply_location", text="Location")
-                row.operator("object.khalibloo_apply_rotation", text="Rotation")
-                row.operator("object.khalibloo_apply_scale", text="Scale")
+                row.operator("object.dazstudio_apply_location", text="Location")
+                row.operator("object.dazstudio_apply_rotation", text="Rotation")
+                row.operator("object.dazstudio_apply_scale", text="Scale")
 
                 layout.label(text="  ")
                 row = layout.row(align=True)
-                row.operator("object.khalibloo_unhide_select", text="", icon='RESTRICT_SELECT_OFF')
-                row.operator("object.khalibloo_hide_select", text="", icon='RESTRICT_SELECT_ON')
-                row.operator("object.khalibloo_unhide_render", text="", icon='RESTRICT_RENDER_OFF')
-                row.operator("object.khalibloo_hide_render", text="", icon='RESTRICT_RENDER_ON')
+                row.operator("object.dazstudio_unhide_select", text="", icon='RESTRICT_SELECT_OFF')
+                row.operator("object.dazstudio_hide_select", text="", icon='RESTRICT_SELECT_ON')
+                row.operator("object.dazstudio_unhide_render", text="", icon='RESTRICT_RENDER_OFF')
+                row.operator("object.dazstudio_hide_render", text="", icon='RESTRICT_RENDER_ON')
 
             #MESH DATA TAB
             if (category_type == '1'):
-                layout.operator("object.khalibloo_copy_all_shape_keys")
+                layout.operator("object.dazstudio_copy_all_shape_keys")
 
             #MATERIALS TAB
             elif (category_type == '2'):
-                layout.operator("object.khalibloo_receive_transparent_shadows")
+                layout.operator("object.dazstudio_receive_transparent_shadows")
                 
-                layout.operator("object.khalibloo_materials_remove", text='Remove Materials', icon='X')
+                layout.operator("object.dazstudio_materials_remove", text='Remove Materials', icon='X')
 
                 row = layout.row(align=True)
                 row.label(text="Textures:", icon='TEXTURE')
-                row.operator("object.khalibloo_textures_on", text='', icon='RESTRICT_VIEW_OFF')
-                row.operator("object.khalibloo_textures_off", text='', icon='RESTRICT_VIEW_ON')
+                row.operator("object.dazstudio_textures_on", text='', icon='RESTRICT_VIEW_OFF')
+                row.operator("object.dazstudio_textures_off", text='', icon='RESTRICT_VIEW_ON')
 
             #MODIFIERS TAB
             elif (category_type == '3'):
-                layout.operator("object.khalibloo_add_subsurf", text='Add Subsurf', icon='MOD_SUBSURF')
+                layout.operator("object.dazstudio_add_subsurf", text='Add Subsurf', icon='MOD_SUBSURF')
 
                 layout.label(text="  ")
                 # Check boxes
-                layout.prop(scene, "khalibloo_subsurf_only")
+                layout.prop(scene, "dazstudio_subsurf_only")
                 
                 row = layout.row(align=True)
-                row.operator("object.khalibloo_modifiers_realtime_on", text='', icon='RESTRICT_VIEW_OFF')
-                row.operator("object.khalibloo_modifiers_realtime_off", text='', icon='RESTRICT_VIEW_ON')
-                row.operator("object.khalibloo_modifiers_render_on", text='', icon='RESTRICT_RENDER_OFF')
-                row.operator("object.khalibloo_modifiers_render_off", text='', icon='RESTRICT_RENDER_ON')
-                #row.operator("object.khalibloo_modifiers_editmode_on", text='', icon='EDITMODE_HLT')
-                #row.operator("object.khalibloo_modifiers_editmode_off", text='', icon='VIEW3D')
-                row.operator("object.khalibloo_modifiers_apply", text='Apply')
-                row.operator("object.khalibloo_modifiers_remove", text='', icon='X')
+                row.operator("object.dazstudio_modifiers_realtime_on", text='', icon='RESTRICT_VIEW_OFF')
+                row.operator("object.dazstudio_modifiers_realtime_off", text='', icon='RESTRICT_VIEW_ON')
+                row.operator("object.dazstudio_modifiers_render_on", text='', icon='RESTRICT_RENDER_OFF')
+                row.operator("object.dazstudio_modifiers_render_off", text='', icon='RESTRICT_RENDER_ON')
+                #row.operator("object.dazstudio_modifiers_editmode_on", text='', icon='EDITMODE_HLT')
+                #row.operator("object.dazstudio_modifiers_editmode_off", text='', icon='VIEW3D')
+                row.operator("object.dazstudio_modifiers_apply", text='Apply')
+                row.operator("object.dazstudio_modifiers_remove", text='', icon='X')
 
             #ARMATURES TAB
             elif (category_type == '4'):
-                layout.operator("object.khalibloo_rigify_neck_fix")
+                layout.operator("object.dazstudio_rigify_neck_fix")
 
             #CONSTRAINTS TAB
             elif (category_type == '5'):
                 
                 row = layout.row(align=True)
-                row.operator("object.khalibloo_constraints_unmute", text='', icon='RESTRICT_VIEW_OFF')
-                row.operator("object.khalibloo_constraints_mute", text='', icon='RESTRICT_VIEW_ON')
-                row.operator("object.khalibloo_constraints_remove", text='', icon='X')
+                row.operator("object.dazstudio_constraints_unmute", text='', icon='RESTRICT_VIEW_OFF')
+                row.operator("object.dazstudio_constraints_mute", text='', icon='RESTRICT_VIEW_ON')
+                row.operator("object.dazstudio_constraints_remove", text='', icon='X')
 
             
 #-----------------------------------------------------------------------------------
@@ -2851,7 +2851,7 @@ class KhaliblooPanel(bpy.types.Panel):
         elif (platform_type == '1'):
             
             #Genesis Object type
-            layout.prop(scene, "khalibloo_enumGenesisTypes", expand=True)
+            layout.prop(scene, "dazstudio_enumGenesisTypes", expand=True)
 
             #if it's a Genesis figure
             if (genesis_type == '0'):
@@ -2859,53 +2859,53 @@ class KhaliblooPanel(bpy.types.Panel):
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis_rigify_setup")
-                #layout.operator("object.khalibloo_genesis_rigify_setup")
-                layout.operator("object.khalibloo_rigify_neck_fix")
+                row.operator("object.dazstudio_genesis_rigify_setup")
+                #layout.operator("object.dazstudio_genesis_rigify_setup")
+                layout.operator("object.dazstudio_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis_rigify_vgroups")
+                row.operator("object.dazstudio_genesis_rigify_vgroups")
 
-                layout.operator("object.khalibloo_genesis_unrigify_vgroups")
+                layout.operator("object.dazstudio_genesis_unrigify_vgroups")
 
 
                 layout.label(text="  ")
                 # Morphs
-                layout.prop(scene, "khalibloo_genesis_morph_dir")
+                layout.prop(scene, "dazstudio_genesis_morph_dir")
                 
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_import_genesis_morphs")
+                row.operator("object.dazstudio_import_genesis_morphs")
                 
 
                 layout.label(text="  ")
                 # Check boxes
-                layout.prop(scene, "khalibloo_affect_textures")
+                layout.prop(scene, "dazstudio_affect_textures")
                 
-                layout.prop(scene, "khalibloo_merge_mats")
+                layout.prop(scene, "dazstudio_merge_mats")
 
                      
                 
                 #row = layout.row()
-                layout.operator("object.khalibloo_genesis_material_setup")
+                layout.operator("object.dazstudio_genesis_material_setup")
 
             #If it's a Genesis item
             elif (genesis_type == '1'):
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis_rigify_vgroups")
+                row.operator("object.dazstudio_genesis_rigify_vgroups")
 
-                layout.operator("object.khalibloo_genesis_unrigify_vgroups")
+                layout.operator("object.dazstudio_genesis_unrigify_vgroups")
 
 #-----------------------------------------------------------------------------------
         #GENESIS 2 TOOLS
         elif (platform_type == '2'):
             
             #Genesis Object type
-            layout.prop(scene, "khalibloo_enumGenesis2Types", expand=True)
+            layout.prop(scene, "dazstudio_enumGenesis2Types", expand=True)
 
             #if it's a Genesis 2 Male
             if (genesis2_type == '0'):
@@ -2913,36 +2913,36 @@ class KhaliblooPanel(bpy.types.Panel):
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis2male_rigify_setup")
+                row.operator("object.dazstudio_genesis2male_rigify_setup")
 
-                layout.operator("object.khalibloo_rigify_neck_fix")
+                layout.operator("object.dazstudio_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis_rigify_vgroups")
+                row.operator("object.dazstudio_genesis_rigify_vgroups")
 
-                layout.operator("object.khalibloo_genesis_unrigify_vgroups")
+                layout.operator("object.dazstudio_genesis_unrigify_vgroups")
 
 
                 layout.label(text="  ")
                 # Morphs
-                layout.prop(scene, "khalibloo_genesis_morph_dir")
+                layout.prop(scene, "dazstudio_genesis_morph_dir")
                 
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_import_genesis_morphs")
+                row.operator("object.dazstudio_import_genesis_morphs")
                 
 
                 layout.label(text="  ")
                 # Check boxes
-                layout.prop(scene, "khalibloo_affect_textures")
+                layout.prop(scene, "dazstudio_affect_textures")
                 
-                layout.prop(scene, "khalibloo_merge_mats")
+                layout.prop(scene, "dazstudio_merge_mats")
 
                      
                 
-                layout.operator("object.khalibloo_genesis_material_setup")
+                layout.operator("object.dazstudio_genesis_material_setup")
 
 
             #if it's a Genesis 2 Female
@@ -2951,35 +2951,35 @@ class KhaliblooPanel(bpy.types.Panel):
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis2female_rigify_setup")
+                row.operator("object.dazstudio_genesis2female_rigify_setup")
 
-                layout.operator("object.khalibloo_rigify_neck_fix")
+                layout.operator("object.dazstudio_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis_rigify_vgroups")
+                row.operator("object.dazstudio_genesis_rigify_vgroups")
 
-                layout.operator("object.khalibloo_genesis_unrigify_vgroups")
+                layout.operator("object.dazstudio_genesis_unrigify_vgroups")
 
 
                 layout.label(text="  ")
                 # Morphs
-                layout.prop(scene, "khalibloo_genesis_morph_dir")
+                layout.prop(scene, "dazstudio_genesis_morph_dir")
                 
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_import_genesis_morphs")
+                row.operator("object.dazstudio_import_genesis_morphs")
                 
 
                 layout.label(text="  ")
                 # Check boxes
-                layout.prop(scene, "khalibloo_affect_textures")
+                layout.prop(scene, "dazstudio_affect_textures")
                 
-                layout.prop(scene, "khalibloo_merge_mats")
+                layout.prop(scene, "dazstudio_merge_mats")
 
                 # Materials
-                layout.operator("object.khalibloo_genesis_material_setup")
+                layout.operator("object.dazstudio_genesis_material_setup")
 
 
             #If it's a Genesis Item
@@ -2987,32 +2987,32 @@ class KhaliblooPanel(bpy.types.Panel):
                 # Big button
                 row = layout.row()
                 row.scale_y = 1.0
-                row.operator("object.khalibloo_genesis_rigify_vgroups")
+                row.operator("object.dazstudio_genesis_rigify_vgroups")
 
-                layout.operator("object.khalibloo_genesis_unrigify_vgroups")
+                layout.operator("object.dazstudio_genesis_unrigify_vgroups")
 
         
 
 def initialize():
-    bpy.types.Scene.khalibloo_enumGenesisTypes = bpy.props.EnumProperty(items =(('0', 'Figure',''),
+    bpy.types.Scene.dazstudio_enumGenesisTypes = bpy.props.EnumProperty(items =(('0', 'Figure',''),
                                          ('1', 'Item','')),
                                 name = ' ', 
                                 default = '0')
 
-    bpy.types.Scene.khalibloo_enumGenesis2Types = bpy.props.EnumProperty(items =(('0', 'Male',''),
+    bpy.types.Scene.dazstudio_enumGenesis2Types = bpy.props.EnumProperty(items =(('0', 'Male',''),
                                          ('1', 'Female',''),
                                          ('2', 'Item', '')),
                                 name = ' ', 
                                 default = '0')
 
-    bpy.types.Scene.khalibloo_enumPlatformTypes = bpy.props.EnumProperty(items =(('0', 'General', ''),
+    bpy.types.Scene.dazstudio_enumPlatformTypes = bpy.props.EnumProperty(items =(('0', 'General', ''),
                                          ('1', 'DAZ Genesis', ''),
                                          ('2', 'DAZ Genesis 2', '')),
                                 name = '',
                                 description = 'Choose platform type',
                                 default = '0')
 
-    bpy.types.Scene.khalibloo_enumCategoryTypes = bpy.props.EnumProperty(items =(('0', 'Object Data','', 'OBJECT_DATA', 0),
+    bpy.types.Scene.dazstudio_enumCategoryTypes = bpy.props.EnumProperty(items =(('0', 'Object Data','', 'OBJECT_DATA', 0),
                                          ('1', 'Mesh Data','', 'MESH_DATA', 1),
                                          ('2', 'Materials', '', 'MATERIAL', 2),
                                          ('3', 'Modifiers', '', 'MODIFIER', 3),
@@ -3022,37 +3022,37 @@ def initialize():
                                 description = 'Type of tools to display',
                                 default = '0')
     
-    bpy.types.Scene.khalibloo_affect_textures = bpy.props.BoolProperty(
+    bpy.types.Scene.dazstudio_affect_textures = bpy.props.BoolProperty(
     name="Textures", 
     description="Whether or not the material setup affects textures as well", 
     default=True)
     
-    bpy.types.Scene.khalibloo_merge_mats = bpy.props.BoolProperty(
+    bpy.types.Scene.dazstudio_merge_mats = bpy.props.BoolProperty(
     name="Merge Materials", 
     description="When checked, materials with the same diffuse textures will be merged. Warning: This will affect EVERY material slot in the active Genesis figure, not just the default Genesis materials", 
     default=False)
 
-    bpy.types.Scene.khalibloo_subsurf_only = bpy.props.BoolProperty(
+    bpy.types.Scene.dazstudio_subsurf_only = bpy.props.BoolProperty(
     name="Subsurf Only", 
     description="When checked, only subsurface division modifiers will be affected by the buttons below", 
     default=False)
 
-    bpy.types.Scene.khalibloo_apply_location = bpy.props.BoolProperty(
+    bpy.types.Scene.dazstudio_apply_location = bpy.props.BoolProperty(
     name="Location", 
     description="Whether or not location transforms are applied", 
     default=True)
 
-    bpy.types.Scene.khalibloo_apply_rotation = bpy.props.BoolProperty(
+    bpy.types.Scene.dazstudio_apply_rotation = bpy.props.BoolProperty(
     name="Rotation", 
     description="Whether or not rotation transforms are applied", 
     default=False)
 
-    bpy.types.Scene.khalibloo_apply_scale = bpy.props.BoolProperty(
+    bpy.types.Scene.dazstudio_apply_scale = bpy.props.BoolProperty(
     name="Scale", 
     description="Whether or not scale transforms are applied", 
     default=False)
 
-    bpy.types.Scene.khalibloo_genesis_morph_dir = bpy.props.StringProperty(
+    bpy.types.Scene.dazstudio_genesis_morph_dir = bpy.props.StringProperty(
     name="",
     description="Folder where your Genesis morphs of choice are located",
     subtype="DIR_PATH",
