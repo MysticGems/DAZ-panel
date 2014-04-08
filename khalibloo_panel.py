@@ -342,12 +342,11 @@ def faceRigFinishingTouches(faceRig):
     bpy.ops.view3d.snap_selected_to_cursor()
 
     bpy.ops.armature.select_all(action='SELECT')
-    bpy.ops.armature.calculate_(type='X')
+    bpy.ops.armature.calculate_roll(type='X')
 
 def setRollsG1(metarig):
     bpy.ops.object.mode_set(mode='OBJECT')
     bpy.context.scene.objects.active = metarig
-    bpy.data.armatures.[metarig].use_mirror_x = True
     bpy.ops.object.mode_set(mode='EDIT')
     bpy.ops.armature.select_all(action='DESELECT')
     bpy.context.active_object.data.edit_bones["head"].roll = 0.0
