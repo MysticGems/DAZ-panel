@@ -342,47 +342,48 @@ def faceRigFinishingTouches(faceRig):
     bpy.ops.view3d.snap_selected_to_cursor()
 
     bpy.ops.armature.select_all(action='SELECT')
-    bpy.ops.armature.calculate_roll(type='X')
+    bpy.ops.armature.calculate_(type='X')
 
 def setRollsG1(metarig):
     bpy.ops.object.mode_set(mode='OBJECT')
     bpy.context.scene.objects.active = metarig
+    bpy.data.armatures.[metarig].use_mirror_x = True
     bpy.ops.object.mode_set(mode='EDIT')
     bpy.ops.armature.select_all(action='DESELECT')
-    bpy.context.active_object.data.edit_bones["head"].roll = 3.141593
-    bpy.context.active_object.data.edit_bones["neck"].roll = 3.141593
-    bpy.context.active_object.data.edit_bones["chest"].roll = 3.141593
-    bpy.context.active_object.data.edit_bones["spine"].roll = 3.141593
-    bpy.context.active_object.data.edit_bones["hips"].roll = 3.141593
-    bpy.context.active_object.data.edit_bones["thigh.L"].roll = -0.050401
-    bpy.context.active_object.data.edit_bones["shin.L"].roll = -0.015987
-    bpy.context.active_object.data.edit_bones["foot.L"].roll = 1.991918
-    bpy.context.active_object.data.edit_bones["toe.L"].roll = 1.570715
-    bpy.context.active_object.data.edit_bones["heel.L"].roll = 0.0939
+    bpy.context.active_object.data.edit_bones["head"].roll = 0.0
+    bpy.context.active_object.data.edit_bones["neck"].roll = 0.0
+    bpy.context.active_object.data.edit_bones["chest"].roll = 0.0
+    bpy.context.active_object.data.edit_bones["spine"].roll = 0.0
+    bpy.context.active_object.data.edit_bones["hips"].roll = 0.0
+    bpy.context.active_object.data.edit_bones["thigh.L"].roll = -0.0504009984433651
+    bpy.context.active_object.data.edit_bones["shin.L"].roll = -0.0504009984433651
+    bpy.context.active_object.data.edit_bones["foot.L"].roll = -1.2196917533874512
+    bpy.context.active_object.data.edit_bones["toe.L"].roll = -1.5707969665527344
+    bpy.context.active_object.data.edit_bones["heel.L"].roll = 3.235492706298828
     bpy.context.active_object.data.edit_bones["heel.02.L"].roll = 0.0000
-    bpy.context.active_object.data.edit_bones["shoulder.L"].roll = 1.563952
-    bpy.context.active_object.data.edit_bones["upper_arm.L"].roll = 0.037177
-    bpy.context.active_object.data.edit_bones["forearm.L"].roll = -1.49246
-    bpy.context.active_object.data.edit_bones["hand.L"].roll = -0.001864
-    bpy.context.active_object.data.edit_bones["thumb.01.L"].roll = 0.155141
-    bpy.context.active_object.data.edit_bones["thumb.02.L"].roll = -1.202702
-    bpy.context.active_object.data.edit_bones["thumb.03.L"].roll = -1.138647
-    bpy.context.active_object.data.edit_bones["palm.01.L"].roll = -0.406613
-    bpy.context.active_object.data.edit_bones["f_index.01.L"].roll = 0.342358
-    bpy.context.active_object.data.edit_bones["f_index.02.L"].roll = 0.954415
-    bpy.context.active_object.data.edit_bones["f_index.03.L"].roll = 1.113254
-    bpy.context.active_object.data.edit_bones["palm.02.L"].roll = -0.170279
-    bpy.context.active_object.data.edit_bones["f_middle.01.L"].roll = 0.35928
-    bpy.context.active_object.data.edit_bones["f_middle.02.L"].roll = 1.005646
-    bpy.context.active_object.data.edit_bones["f_middle.03.L"].roll = 1.48392
-    bpy.context.active_object.data.edit_bones["palm.03.L"].roll = -0.054727
-    bpy.context.active_object.data.edit_bones["f_ring.01.L"].roll = 0.044556
-    bpy.context.active_object.data.edit_bones["f_ring.02.L"].roll = 0.589653
-    bpy.context.active_object.data.edit_bones["f_ring.03.L"].roll = 0.936229
-    bpy.context.active_object.data.edit_bones["palm.04.L"].roll = 0.19465
-    bpy.context.active_object.data.edit_bones["f_pinky.01.L"].roll = 0.311602
-    bpy.context.active_object.data.edit_bones["f_pinky.02.L"].roll = 0.895949
-    bpy.context.active_object.data.edit_bones["f_pinky.03.L"].roll = 0.997271
+    bpy.context.active_object.data.edit_bones["shoulder.L"].roll = -0.14080238342285156
+    bpy.context.active_object.data.edit_bones["upper_arm.L"].roll = 1.658538818359375
+    bpy.context.active_object.data.edit_bones["forearm.L"].roll = -4.658705711364746
+    bpy.context.active_object.data.edit_bones["hand.L"].roll = -4.658705711364746
+    bpy.context.active_object.data.edit_bones["thumb.01.L"].roll = -0.001863999990746379
+    bpy.context.active_object.data.edit_bones["thumb.02.L"].roll = 0.15514099597930908
+    bpy.context.active_object.data.edit_bones["thumb.03.L"].roll = -1.2027020454406738
+    bpy.context.active_object.data.edit_bones["palm.01.L"].roll = -3.713930606842041
+    bpy.context.active_object.data.edit_bones["f_index.01.L"].roll = -2.4652202129364014
+    bpy.context.active_object.data.edit_bones["f_index.02.L"].roll = -1.5843585729599
+    bpy.context.active_object.data.edit_bones["f_index.03.L"].roll = -1.2639498710632324
+    bpy.context.active_object.data.edit_bones["palm.02.L"].roll = -0.17027899622917175
+    bpy.context.active_object.data.edit_bones["f_middle.01.L"].roll = 3.410797595977783
+    bpy.context.active_object.data.edit_bones["f_middle.02.L"].roll = -1.9039210081100464
+    bpy.context.active_object.data.edit_bones["f_middle.03.L"].roll = -1.9039210081100464
+    bpy.context.active_object.data.edit_bones["palm.03.L"].roll = 2.725355625152588
+    bpy.context.active_object.data.edit_bones["f_ring.01.L"].roll = 3.2937159538269043
+    bpy.context.active_object.data.edit_bones["f_ring.02.L"].roll = -2.1853532791137695
+    bpy.context.active_object.data.edit_bones["f_ring.03.L"].roll = -1.8413819074630737
+    bpy.context.active_object.data.edit_bones["palm.04.L"].roll = 2.903106212615967
+    bpy.context.active_object.data.edit_bones["f_pinky.01.L"].roll = 3.310237407684326
+    bpy.context.active_object.data.edit_bones["f_pinky.02.L"].roll = 3.310237407684326
+    bpy.context.active_object.data.edit_bones["f_pinky.03.L"].roll = 3.310237407684326
     bpy.ops.armature.select_all(action='DESELECT')
     bpy.ops.object.mode_set(mode='OBJECT')
 
@@ -2857,14 +2858,14 @@ class KhaliblooPanel(bpy.types.Panel):
                 
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_setup")
                 #layout.operator("object.khalibloo_genesis_rigify_setup")
                 layout.operator("object.khalibloo_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2875,7 +2876,7 @@ class KhaliblooPanel(bpy.types.Panel):
                 layout.prop(scene, "khalibloo_genesis_morph_dir")
                 
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_import_genesis_morphs")
                 
 
@@ -2894,7 +2895,7 @@ class KhaliblooPanel(bpy.types.Panel):
             elif (genesis_type == '1'):
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2911,14 +2912,14 @@ class KhaliblooPanel(bpy.types.Panel):
                 
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis2male_rigify_setup")
 
                 layout.operator("object.khalibloo_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2929,7 +2930,7 @@ class KhaliblooPanel(bpy.types.Panel):
                 layout.prop(scene, "khalibloo_genesis_morph_dir")
                 
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_import_genesis_morphs")
                 
 
@@ -2949,14 +2950,14 @@ class KhaliblooPanel(bpy.types.Panel):
                 
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis2female_rigify_setup")
 
                 layout.operator("object.khalibloo_rigify_neck_fix")
                         
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
@@ -2967,7 +2968,7 @@ class KhaliblooPanel(bpy.types.Panel):
                 layout.prop(scene, "khalibloo_genesis_morph_dir")
                 
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_import_genesis_morphs")
                 
 
@@ -2985,7 +2986,7 @@ class KhaliblooPanel(bpy.types.Panel):
             elif (genesis2_type == '2'):
                 # Big button
                 row = layout.row()
-                row.scale_y = 2.0
+                row.scale_y = 1.0
                 row.operator("object.khalibloo_genesis_rigify_vgroups")
 
                 layout.operator("object.khalibloo_genesis_unrigify_vgroups")
