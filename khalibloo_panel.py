@@ -23,7 +23,7 @@ bl_info = {
     "blender": (2, 69, 0),
     "description": "Broad collection of tools to simplify common repetitive tasks. Includes tools for prepping DAZ Genesis characters and items.",
     "location": "View3D > Properties > Rigging",
-    "category": "DAZ3D"}
+    "category": "DAZ 3D"}
 
 
 
