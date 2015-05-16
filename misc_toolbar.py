@@ -140,7 +140,7 @@ class loadTeleBlenderExport(bpy.types.Operator):
     bl_idname = "view3d.jack_import"
     
     def execute(self, context):
-        filename = '/Users/jspade/Documents/DAZ 3D/Studio/Exports/scene.py'
+        filename = context.scene.teleblender_import_script + 'scene.py'
         print('Importing from ' + filename)
         exec(compile(open(filename).read(), filename, 'exec'))
 #        text = bpy.data.texts.load(path)
@@ -156,46 +156,102 @@ class loadTeleBlenderExport(bpy.types.Operator):
 #                bpy.ops.text.run_script(ctx)
         return{'FINISHED'}
 
+class cleanupOldMaterials(bpy.types.Operator):
+    """Clean up old materials"""
+    bl_label = "Materials"
+    bl_idname = "view3d.clean_up_old_materials"
+
+    # Do that thing
+    def execute(self, context):
+        print('new run')
+        img_names = []
+        materials = bpy.data.materials
+
+        # find images in material nodes
+        for mat in materials:
+            try:
+                nam = mat.name
+                parts = nam.split(".")
+                nam = parts[0]
+            except:
+                print('- No image')
+         
+        # Iterate through all images and remove those we
+        # haven't identified as used
+        imgs = bpy.data.images
+        count = 0
+        for image in imgs:
+            name = image.name
+            if name not in img_names:
+                print( 'Removing image ' + name )
+                count = count + 1
+                image.user_clear()
+        self.report({'INFO'}, "Removed: %s images" % count)
+        return{'FINISHED'}
+
 # Create the toolbar panel
 class JackPanel(bpy.types.Panel):
     """Miscellaneous personal tools"""
-    bl_label = "Personal"
+    bl_category = "Tools"
+    bl_label = "Jack's Tools"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'TOOLS'
      
     def draw( self, context ):
          layout = self.layout
+         scene = context.scene
+         teleblender_import_script = scene.teleblender_import_script
          
+         # Import from DAZ via mcjTeleBlender
          row = layout.row()
          row.label(text="Import")
+         
+         layout.prop(context.scene, "teleblender_import_script", expand=True)
          
          split = layout.split()
          col = split.column( align = True )
          col.operator("view3d.jack_import")
          
+         # Clean up after imports
          row = layout.row()
          row.label(text="Global Cleanup")
 
          split = layout.split()
          col = split.column( align = True )
-         # Button for image cleanup
+         # Remove duplicate images
          col.operator("view3d.clean_up_images", icon='IMAGE_DATA')
          col.operator("view3d.clean_up_images_no_rename", icon='IMAGE_DATA')
-                
+         
+         # Remove spurious image suffixes
+         split = layout.split()
+         col = split.column( align = True )
+         col.operator("view3d.clean_up_old_materials")
+
+def initialize():
+    # Create scene properties
+    bpy.types.Scene.teleblender_import_script = bpy.props.StringProperty(
+    name="",
+    description="mcjTeleBlender export script to run",
+    subtype="DIR_PATH",
+    default="/Users/jspade/Documents/DAZ 3D/Studio/Exports/")
+    
 #============================================================================
 # REGISTER AND UNREGISTER
 #============================================================================
 
 def register():
+    initialize()
     bpy.utils.register_class(JackPanel)
     bpy.utils.register_class(cleanupExtraImages)
     bpy.utils.register_class(cleanupExtraImagesNoRename)
     bpy.utils.register_class(loadTeleBlenderExport)
+    bpy.utils.register_class(cleanupOldMaterials)
 def unregister():
     bpy.utils.unregister_class(JackPanel)
     bpy.utils.unregister_class(cleanupExtraImages)
     bpy.utils.unregister_class(cleanupExtraImagesNoRename)
     bpy.utils.unregister_class(loadTeleBlenderExport)
+    bpy.utils.unregister_class(cleanupOldMaterials)
 
 if __name__ == "__main__":
     register()
