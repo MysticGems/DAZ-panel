@@ -172,21 +172,12 @@ class cleanupOldMaterials(bpy.types.Operator):
             try:
                 nam = mat.name
                 parts = nam.split(".")
-                nam = parts[0]
+                mat.name = parts[0]
+                print('- Renamed ' )
             except:
-                print('- No image')
+                print('- Did not rename ')
          
-        # Iterate through all images and remove those we
-        # haven't identified as used
-        imgs = bpy.data.images
-        count = 0
-        for image in imgs:
-            name = image.name
-            if name not in img_names:
-                print( 'Removing image ' + name )
-                count = count + 1
-                image.user_clear()
-        self.report({'INFO'}, "Removed: %s images" % count)
+        self.report({'INFO'}, "Probably renamed some materials")
         return{'FINISHED'}
 
 # Create the toolbar panel
