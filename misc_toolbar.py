@@ -179,6 +179,39 @@ class cleanupOldMaterials(bpy.types.Operator):
          
         self.report({'INFO'}, "Probably renamed some materials")
         return{'FINISHED'}
+    
+class renameMaterials(bpy.types.Operator):
+    """Changes material suffix"""
+    bl_label = "Rename Mats"
+    bl_idname = "view3d.rename_materials"
+
+    # Do that thing
+    def execute(self, context):
+        suffix = bpy.context.scene.teleblender_material_suffix
+        delim = "_"
+        print('new run')
+        img_names = []
+        materials = []
+
+        # find images in material nodes
+        for obj in bpy.context.selected_objects:
+            for slot in obj.material_slots:
+                materials.append(slot.material)
+                
+        for mat in materials:
+            try:
+                nam = mat.name
+                parts = nam.split(delim)
+                if suffix == "":
+                    mat.name = parts[0]
+                else:
+                    mat.name = parts[0] + delim + suffix
+                print('- Renamed ' + nam )
+            except:
+                print('- Did not rename ')
+         
+        self.report({'INFO'}, "Probably renamed some materials")
+        return{'FINISHED'}
 
 # Create the toolbar panel
 class JackPanel(bpy.types.Panel):
@@ -217,6 +250,8 @@ class JackPanel(bpy.types.Panel):
          split = layout.split()
          col = split.column( align = True )
          col.operator("view3d.clean_up_old_materials")
+         layout.prop(context.scene, "teleblender_material_suffix", expand=True)
+         col.operator("view3d.rename_materials")
 
 def initialize():
     # Create scene properties
@@ -225,6 +260,10 @@ def initialize():
     description="mcjTeleBlender export script to run",
     subtype="DIR_PATH",
     default="/Users/jspade/Documents/DAZ 3D/Studio/Exports/")
+    bpy.types.Scene.teleblender_material_suffix = bpy.props.StringProperty(
+    name="",
+    description="Material suffix",
+    default="Character")
     
 #============================================================================
 # REGISTER AND UNREGISTER
@@ -237,12 +276,14 @@ def register():
     bpy.utils.register_class(cleanupExtraImagesNoRename)
     bpy.utils.register_class(loadTeleBlenderExport)
     bpy.utils.register_class(cleanupOldMaterials)
+    bpy.utils.register_class(renameMaterials)
 def unregister():
     bpy.utils.unregister_class(JackPanel)
     bpy.utils.unregister_class(cleanupExtraImages)
     bpy.utils.unregister_class(cleanupExtraImagesNoRename)
     bpy.utils.unregister_class(loadTeleBlenderExport)
     bpy.utils.unregister_class(cleanupOldMaterials)
+    bpy.utils.unregister_class(renameMaterials)
 
 if __name__ == "__main__":
     register()
