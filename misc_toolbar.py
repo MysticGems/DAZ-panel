@@ -158,7 +158,7 @@ class loadTeleBlenderExport(bpy.types.Operator):
 
 class cleanupOldMaterials(bpy.types.Operator):
     """Clean up old materials"""
-    bl_label = "Materials"
+    bl_label = "Old Materials"
     bl_idname = "view3d.clean_up_old_materials"
 
     # Do that thing
@@ -167,16 +167,19 @@ class cleanupOldMaterials(bpy.types.Operator):
         img_names = []
         materials = bpy.data.materials
 
-        # find images in material nodes
+        # Rename long materials
         for mat in materials:
             try:
                 nam = mat.name
                 parts = nam.split(".")
-                mat.name = parts[0]
-                print('- Renamed ' )
-            except:
-                print('- Did not rename ')
-         
+								if len(parts) > 1:
+										mat.name = parts[0]
+										print('- Renamed ' + mat.name )
+								else:
+										print('- No need to rename ' + mat.name )
+						except:
+								print('- Failed to rename ' + mat.name)
+                 
         self.report({'INFO'}, "Probably renamed some materials")
         return{'FINISHED'}
     
