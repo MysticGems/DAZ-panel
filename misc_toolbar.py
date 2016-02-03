@@ -34,7 +34,7 @@ def findImage(name):
     if( name == "" ):
         return( 0 )
     for img in bpy.data.images:
-        if( img.name == name ):
+        if( img.filepath == name ):
             return( img )
     return( 0 );
 
@@ -61,13 +61,13 @@ class cleanupExtraImages(bpy.types.Operator):
             if hasattr( mat, 'node_tree' ):
                 if hasattr( mat.node_tree, 'nodes' ):
                     nodes = mat.node_tree.nodes
-                    print( mat.name )
+                    print( "Checking " + mat.name )
                     for node in nodes:
                         if type(node) == bpy.types.ShaderNodeTexImage:
                             # Get the image name
                             # Drop all but the first two name parts
                             try:
-                                nam = node.image.name
+                                nam = node.image.filepath
                                 parts = nam.split(".")
                                 nam = parts[0] + "." + parts[1]
                                 newImage = findImage( nam )
@@ -136,7 +136,7 @@ class cleanupExtraImagesNoRename(bpy.types.Operator):
     
 class loadTeleBlenderExport(bpy.types.Operator):
     """Import mcjTeleBlender export from my usual location"""
-    bl_label = "mcjTeleBlender"
+    bl_label = "DAZ Import"
     bl_idname = "view3d.jack_import"
     
     def execute(self, context):
@@ -237,16 +237,16 @@ class JackPanel(bpy.types.Panel):
          col.operator("view3d.jack_import")
          
          # Clean up after imports
-         row = layout.row()
-         row.label(text="Global Cleanup")
-
-         split = layout.split()
-         col = split.column( align = True )
+#          row = layout.row()
+#          row.label(text="Global Cleanup")
+# 
+#          split = layout.split()
+#          col = split.column( align = True )
          # Remove duplicate images
-         col.operator("view3d.clean_up_images", icon='IMAGE_DATA')
-         col.operator("view3d.clean_up_images_no_rename", icon='IMAGE_DATA')
+#          col.operator("view3d.clean_up_images", icon='IMAGE_DATA')
+#          col.operator("view3d.clean_up_images_no_rename", icon='IMAGE_DATA')
          
-         # Remove spurious image suffixes
+         # Remove spurious material suffixes
          split = layout.split()
          col = split.column( align = True )
          col.operator("view3d.clean_up_old_materials")
